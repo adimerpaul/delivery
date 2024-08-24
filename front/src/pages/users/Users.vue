@@ -28,6 +28,13 @@
 <!--              </q-item-section>-->
 <!--              <q-item-section>Permisos</q-item-section>-->
 <!--            </q-item>-->
+<!--            item de de cambio de imagen-->
+            <q-item clickable v-ripple @click="userChangeAvatar(props.row)">
+              <q-item-section avatar>
+                <q-icon name="image" />
+              </q-item-section>
+              <q-item-section>Cambiar imagen</q-item-section>
+            </q-item>
           </q-btn-dropdown>
         </q-td>
       </template>
@@ -153,6 +160,21 @@ export default {
     this.userGet()
   },
   methods: {
+    userChangeAvatar (user) {
+      this.$alert.promptFile('Seleccione una imagen').onOk(file => {
+        const formData = new FormData()
+        formData.append('avatar', file)
+        this.loading = true
+        this.$axios.post(`avatar/${user.id}`, formData).then(response => {
+          const index = this.users.findIndex(user => user.id === response.data.id)
+          this.users.splice(index, 1, response.data)
+        }).catch(error => {
+          this.$alert.error(error.response.data.message)
+        }).finally(() => {
+          this.loading = false
+        })
+      })
+    },
     userPermisos () {
       this.loading = true
       this.$axios.put(`permissions/${this.user.id}`, {permissions: this.permisosSelected}).then(response => {
