@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('role')->default('ADMIN')->comment('ADMIN, ATTORNEY, TEACHER, DOCTOR');
             $table->string('username')->unique()->nullable();
+            $table->string('avatar')->nullable()->default('default.png');
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

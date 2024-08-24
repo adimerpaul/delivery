@@ -20,7 +20,11 @@
           <q-btn flat dense icon="o_notifications" aria-label="Notificaciones">
             <q-badge color="primary" text-color="white" floating>3</q-badge>
           </q-btn>
-          <q-btn flat dense icon="o_account_circle" aria-label="Menu" :label="textCapitalize($store.user.name)" no-caps icon-right="arrow_drop_down">
+          <q-btn flat dense aria-label="Menu" no-caps icon-right="arrow_drop_down">
+            <q-avatar>
+              <q-img :src="`${$url}../images/${$store.user?.avatar}`" v-if="$store.user?.avatar" />
+            </q-avatar>
+            <span class="q-ml-sm">{{ $store.user?.name }}</span>
             <q-menu>
               <q-list>
                 <q-item clickable v-ripple>
@@ -118,6 +122,8 @@ export default {
       leftDrawerOpen: false,
       essentialLinks: [
         { title: 'Inicio', icon: 'home', to: '/' },
+        { title: 'Vendedores', icon: 'people', to: '/users' },
+        { title: 'Pedidos', icon: 'shopping_cart', to: '/orders' },
       ],
     };
   },
