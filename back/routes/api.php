@@ -18,10 +18,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::put('/passwordUpdate/{id}', [\App\Http\Controllers\UserController::class, 'passwordUpdate']);
     Route::post('/avatar/{id}', [\App\Http\Controllers\UserController::class, 'avatar']);
 
-    Route::get('/movies', [\App\Http\Controllers\MovieController::class, 'index']);
-    Route::post('/movies', [\App\Http\Controllers\MovieController::class, 'store']);
-    Route::put('/movies/{id}', [\App\Http\Controllers\MovieController::class, 'update']);
-    Route::delete('/movies/{id}', [\App\Http\Controllers\MovieController::class, 'destroy']);
+    Route::get('/pedidos', [\App\Http\Controllers\PedidoController::class, 'index']);
+    Route::post('/pedidos', [\App\Http\Controllers\PedidoController::class, 'store']);
+    Route::put('/pedidos/{id}', [\App\Http\Controllers\PedidoController::class, 'update']);
+    Route::delete('/pedidos/{id}', [\App\Http\Controllers\PedidoController::class, 'destroy']);
 });
 //rutas para moviles on api/mobil/asa
 Route::group(['prefix' => 'mobil'], function(){
