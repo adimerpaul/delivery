@@ -9,6 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pedido extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable = ['user_id','estado','nombre','direccion','telefono','total','latitud','longitud'];
+    protected $fillable = ['user_id','estado','nombre','direccion','telefono','total','latitud','longitud','fecha'];
     protected $hidden = ['created_at','updated_at','deleted_at'];
 }

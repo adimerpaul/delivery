@@ -123,7 +123,7 @@ export default {
       essentialLinks: [
         { title: 'Inicio', icon: 'home', to: '/' },
         { title: 'Vendedores', icon: 'people', to: '/users' },
-        { title: 'Pedidos', icon: 'shopping_cart', to: '/orders' },
+        { title: 'Pedidos', icon: 'shopping_cart', to: '/pedidos' },
       ],
     };
   },

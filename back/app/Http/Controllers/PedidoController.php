@@ -6,8 +6,10 @@ use App\Models\Pedido;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller{
-    function index(){
-        return Pedido::orderBy('id', 'desc')->get();
+    function index(Request $request){
+        $fechaInicio = $request->get('fechaInicio');
+        $fechaFin = $request->get('fechaFin');
+        return Pedido::orderBy('id', 'desc')->whereBetween('fecha', [$fechaInicio, $fechaFin])->get();
     }
     function store(Request $request){
         return Pedido::create($request->all());

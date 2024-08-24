@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('direccion');
             $table->string('telefono');
             $table->string('total');
+            $table->dateTime('fecha');
             $table->double('latitud');
             $table->double('longitud');
             $table->softDeletes();

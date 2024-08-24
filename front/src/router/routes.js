@@ -6,6 +6,7 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/index/IndexPage.vue'), meta: { requiresAuth: true } },
       { path: 'users', component: () => import('pages/users/Users.vue'), meta: { requiresAuth: true } },
+      { path: 'pedidos', component: () => import('pages/pedidos/Pedidos.vue'), meta: { requiresAuth: true } },
     ]
   },
   {
