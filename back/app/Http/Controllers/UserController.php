@@ -9,6 +9,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller{
+    function avatar(Request $request, $id){
+
+        //verificar que se mande la imagen avatar
+        if(!$request->hasFile('avatar')){
+            return response()->json([
+                'message' => 'No se ha enviado el avatar',
+            ], 400);
+        }
+
+        $avatar = $request->file('avatar');
+        $name = time().'_'.$avatar->getClientOriginalName();
+        $avatar->move(public_path('images'), $name);
+        $user = User::find($id);
+        $user->avatar = $name;
+        $user->save();
+        return $user;
+    }
     public function login(Request $request){
         $credentials = $request->only('username', 'password');
         $user = User::where('username', $credentials['username'])->first();
@@ -50,7 +67,7 @@ class UserController extends Controller{
         $user->role = $request->role;
         $user->password = Hash::make($request->password);
         $user->save();
-        return $user;
+        return User::find($user->id);
     }
     public function update(Request $request, $id){
         $user = User::find($id);

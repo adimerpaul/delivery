@@ -128,6 +128,30 @@
         </q-form>
       </q-card>
     </q-dialog>
+    <q-dialog v-model="dialogFile">
+      <q-card style="width: 450px;max-width: 90vw;">
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-bold">Cambiar imagen de {{ user.name }}</div>
+          <q-space />
+          <q-btn flat dense icon="close" @click="dialogFile = false" />
+        </q-card-section>
+        <q-card-section class="q-pa-xs">
+          <div class="text-center">
+            <q-avatar>
+              <q-img :src="`${$url}../images/${user.avatar}`" v-if="user.avatar" />
+            </q-avatar>
+            <div class="text-h6">{{ user.name }}</div>
+          </div>
+          <q-form @submit="avatarSave">
+              <input @change="file = $event.target.files[0]" type="file" accept="image/*" />
+              <div class="text-right">
+                <q-btn flat label="Cancelar" v-close-popup :loading="loading" />
+                <q-btn color="primary" label="Guardar" type="submit" :loading="loading" />
+              </div>
+          </q-form>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 <script>
@@ -152,7 +176,9 @@ export default {
       passwordShow: false,
       permisos: [],
       permisosSelected: [],
-      dialogPermisos: false
+      dialogPermisos: false,
+      dialogFile: false,
+      file: null
     }
   },
   mounted() {
@@ -160,20 +186,23 @@ export default {
     this.userGet()
   },
   methods: {
-    userChangeAvatar (user) {
-      this.$alert.promptFile('Seleccione una imagen').onOk(file => {
-        const formData = new FormData()
-        formData.append('avatar', file)
-        this.loading = true
-        this.$axios.post(`avatar/${user.id}`, formData).then(response => {
-          const index = this.users.findIndex(user => user.id === response.data.id)
-          this.users.splice(index, 1, response.data)
-        }).catch(error => {
-          this.$alert.error(error.response.data.message)
-        }).finally(() => {
-          this.loading = false
-        })
+    avatarSave () {
+      this.loading = true
+      const formData = new FormData()
+      formData.append('avatar', this.file)
+      this.$axios.post(`avatar/${this.user.id}`, formData).then(response => {
+        this.dialogFile = false
+        const index = this.users.findIndex(user => user.id === response.data.id)
+        this.users.splice(index, 1, response.data)
+      }).catch(error => {
+        this.$alert.error(error.response.data.message)
+      }).finally(() => {
+        this.loading = false
       })
+    },
+    userChangeAvatar (user) {
+      this.dialogFile = true
+      this.user = user
     },
     userPermisos () {
       this.loading = true

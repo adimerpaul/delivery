@@ -16,6 +16,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::put('/users/{id}', [\App\Http\Controllers\UserController::class, 'update']);
     Route::delete('/users/{id}', [\App\Http\Controllers\UserController::class, 'delete']);
     Route::put('/passwordUpdate/{id}', [\App\Http\Controllers\UserController::class, 'passwordUpdate']);
+    Route::post('/avatar/{id}', [\App\Http\Controllers\UserController::class, 'avatar']);
 
     Route::get('/movies', [\App\Http\Controllers\MovieController::class, 'index']);
     Route::post('/movies', [\App\Http\Controllers\MovieController::class, 'store']);

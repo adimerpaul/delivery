@@ -48,6 +48,26 @@ export class Alert {
       },
     })
   }
+  static promptFile (message) {
+    return Dialog.create({
+      title: 'Confirmación',
+      message,
+      prompt: {
+        model: '',
+        type: 'file',
+        placeholder: 'Selecciona un archivo',
+      },
+      color: 'positive',
+      ok: {
+        label: 'Aceptar',
+        color: 'positive'
+      },
+      cancel: {
+        label: 'Cancelar',
+        color: 'negative'
+      },
+    })
+  }
 
   static promptPassword (message) {
     return Dialog.create({
